@@ -5,6 +5,9 @@ myts <- ts(c(rnorm(50, 34, 10), rnorm(67, 7, 1), runif(23, 3, 14)))
 
 plot(myts)
 # mean and variance are not constant
+# Constant variance is a key indicator of stationarity.
+# Transformation is one way to make a time series stationary.
+# Can also use differencing using diff() or use auto.arima() to make it stationary
 
 # Mean, Naive and Drift method
 meanm <- meanf(myts, h=10)
@@ -41,6 +44,10 @@ hist(naivem$residuals)
 shapiro.test(naivem$residuals)
 # p<0.05, so reject H0. The residuals are not normal.
 
+# Autocorrelation: correlation coefficient between different time points (lags) in a time series
+# Partial autocorrelation: cor coef adjusted for all shorter lags in a time series
+# acf() is used to identify the moving average (MA) part of the ARIMA model
+# pacf() identifies the values for the autoregressive part (AR)
 acf(naivem$residuals[-1]) # omit the 1st lag
 # 4 lags outside the CI, so there is some autocorrelation.
 
